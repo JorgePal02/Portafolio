@@ -1,0 +1,349 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --lime:#BFFF00;
+  --lime2:#d4ff4d;
+  --lime-dim:rgba(191,255,0,0.12);
+  --lime-border:rgba(191,255,0,0.3);
+  --bg:#080808;
+  --card:#111111;
+  --card2:#161616;
+  --border:#222;
+  --text:#f5f5f5;
+  --muted:#777;
+  --syne:'Syne',sans-serif;
+  --mono:'Space Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--syne);overflow-x:hidden}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--lime);border-radius:2px}
+
+.wrap{max-width:920px;margin:0 auto;padding:0 2rem;position:relative}
+
+/* GLOW BG */
+.glow-orb{position:fixed;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(191,255,0,.07) 0%,transparent 70%);pointer-events:none;z-index:0}
+.glow-orb2{position:fixed;bottom:-300px;left:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(191,255,0,.04) 0%,transparent 70%);pointer-events:none;z-index:0}
+
+/* NAV */
+nav{padding:1.5rem 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:relative;z-index:10}
+.logo{font-size:1rem;font-weight:800;letter-spacing:-.02em;color:var(--text)}
+.logo span{color:var(--lime)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:.65rem;font-family:var(--mono);color:var(--muted);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--lime)}
+.nav-badge{font-family:var(--mono);font-size:.6rem;background:var(--lime-dim);color:var(--lime);border:1px solid var(--lime-border);padding:.25rem .6rem;border-radius:20px;letter-spacing:.06em}
+
+/* HERO */
+.hero{padding:5.5rem 0 4.5rem;position:relative;z-index:1}
+.hero-tag{font-family:var(--mono);font-size:.65rem;color:var(--lime);letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+.hero-tag::before{content:'';width:2.5rem;height:1px;background:var(--lime)}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(191,255,0,.4)}50%{opacity:.8;box-shadow:0 0 0 6px rgba(191,255,0,0)}}
+h1.hero-name{font-size:clamp(3rem,8vw,6rem);font-weight:800;line-height:.95;letter-spacing:-.05em;margin-bottom:.5rem}
+h1.hero-name .first{color:var(--text)}
+h1.hero-name .last{color:var(--lime)}
+.hero-role{font-family:var(--mono);font-size:.8rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.75rem;padding-left:.15rem}
+.hero-desc{font-size:.9rem;color:#aaa;max-width:500px;line-height:1.8;margin-bottom:2.5rem}
+.cta-row{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.4rem;font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-radius:4px;transition:all .22s;cursor:pointer;border:none;outline:none}
+.btn-lime{background:var(--lime);color:#080808}
+.btn-lime:hover{background:var(--lime2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(191,255,0,.25)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-outline:hover{border-color:var(--lime);color:var(--lime)}
+.hero-corner{position:absolute;right:0;top:2rem;font-family:var(--mono);font-size:.6rem;color:var(--border);letter-spacing:.08em;writing-mode:vertical-rl;text-transform:uppercase}
+
+/* SECTION */
+section{padding:4.5rem 0;border-top:1px solid var(--border);position:relative;z-index:1}
+.s-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.s-label::after{content:'';flex:1;height:1px;background:var(--lime-border)}
+.s-title{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.04em;margin-bottom:2.5rem;line-height:1.1}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.about-text p{color:#999;line-height:1.85;font-size:.88rem;margin-bottom:1.1rem}
+.about-info{margin-top:1.5rem;display:flex;flex-direction:column;gap:.6rem}
+.info-row{display:flex;align-items:center;gap:.75rem;font-family:var(--mono);font-size:.7rem}
+.info-row i{color:var(--lime);font-size:14px;flex-shrink:0}
+.info-row a{color:#aaa;text-decoration:none;transition:color .2s}
+.info-row a:hover{color:var(--lime)}
+.info-row span{color:#aaa}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.25rem;transition:border-color .2s}
+.stat:hover{border-color:var(--lime-border)}
+.stat-n{font-size:2.2rem;font-weight:800;color:var(--lime);letter-spacing:-.05em;line-height:1}
+.stat-l{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:.4rem}
+.lang-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+.lang-badge{font-family:var(--mono);font-size:.65rem;padding:.3rem .8rem;border-radius:20px;background:var(--card2);border:1px solid var(--border);color:#aaa}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.85rem}
+.skill-group{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2rem;transition:border-color .2s,transform .2s}
+.skill-group:hover{border-color:var(--lime-border);transform:translateY(-2px)}
+.sg-icon{font-size:18px;color:var(--lime);margin-bottom:.75rem}
+.sg-title{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{font-family:var(--mono);font-size:.6rem;padding:.28rem .65rem;border-radius:3px;letter-spacing:.04em;background:var(--lime-dim);color:var(--lime);border:1px solid var(--lime-border)}
+.tag-gray{background:rgba(255,255,255,.05);color:#aaa;border:1px solid var(--border)}
+
+/* EXPERIENCE */
+.exp-list{display:flex;flex-direction:column}
+.exp-item{display:grid;grid-template-columns:160px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+.exp-item:last-child{border-bottom:none}
+.exp-meta{text-align:right}
+.exp-date{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.06em;line-height:1.6}
+.exp-dot-row{display:flex;align-items:center;justify-content:flex-end;gap:.5rem;margin-top:.5rem}
+.exp-dot{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime)}
+.exp-role{font-size:1.05rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.2rem}
+.exp-company{font-family:var(--mono);font-size:.7rem;color:var(--lime);letter-spacing:.06em;margin-bottom:.75rem}
+.exp-desc{font-size:.83rem;color:#999;line-height:1.75}
+.exp-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+
+/* EDUCATION */
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.5rem;transition:border-color .2s}
+.edu-card:hover{border-color:var(--lime-border)}
+.edu-deg{font-weight:700;font-size:.95rem;margin-bottom:.3rem;letter-spacing:-.01em}
+.edu-school{font-family:var(--mono);font-size:.65rem;color:var(--lime);letter-spacing:.06em;margin-bottom:.3rem}
+.edu-year{font-family:var(--mono);font-size:.62rem;color:var(--muted)}
+
+/* CONTACT */
+.contact-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:3.5rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.contact-box::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:300px;height:1px;background:linear-gradient(90deg,transparent,var(--lime),transparent)}
+.contact-box::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:200px;height:80px;background:radial-gradient(ellipse,rgba(191,255,0,.08) 0%,transparent 70%);pointer-events:none}
+.contact-title{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;letter-spacing:-.04em;margin-bottom:.75rem}
+.contact-title span{color:var(--lime)}
+.contact-sub{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:2rem;line-height:1.7}
+.contact-links{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap}
+
+/* FOOTER */
+footer{padding:2rem 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+.footer-copy{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.06em}
+.footer-copy span{color:var(--lime)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero-tag{animation:fadeUp .45s ease both}
+h1.hero-name{animation:fadeUp .45s .08s ease both}
+.hero-role{animation:fadeUp .45s .15s ease both}
+.hero-desc{animation:fadeUp .45s .22s ease both}
+.cta-row{animation:fadeUp .45s .3s ease both}
+
+@media(max-width:640px){
+  .about-grid,.edu-grid{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr;gap:.75rem}
+  .exp-meta{text-align:left}
+  .exp-dot-row{justify-content:flex-start}
+  .hero-corner{display:none}
+}
+</style>
+
+<div class="glow-orb"></div>
+<div class="glow-orb2"></div>
+
+<div class="wrap">
+  <!-- NAV -->
+  <nav>
+    <div class="logo">JP<span>.</span></div>
+    <div class="nav-links">
+      <a href="#about">sobre mí</a>
+      <a href="#skills">skills</a>
+      <a href="#experience">experiencia</a>
+      <a href="#contact">contacto</a>
+      <span class="nav-badge">disponible</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-corner">Jorge Palacios · 2026</div>
+    <div class="hero-tag">
+      <div class="hero-tag-dot"></div>
+      Desarrollador Junior · Getafe, Madrid
+    </div>
+    <h1 class="hero-name">
+      <span class="first">Jorge</span><br>
+      <span class="last">Palacios</span>
+    </h1>
+    <div class="hero-role">Full-Stack Developer &amp; Técnico de Sistemas</div>
+    <p class="hero-desc">Entusiasta de la informática, apasionado por el aprendizaje continuo. Experiencia en automatización con IA, arquitecturas RAG y desarrollo de aplicaciones multiplataforma.</p>
+    <div class="cta-row">
+      <a href="https://www.linkedin.com/in/jorge-palacios-gonz%C3%A1lez" target="_blank" class="btn btn-lime">
+        <i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn
+      </a>
+      <a href="https://github.com/JorgePal02" target="_blank" class="btn btn-outline">
+        <i class="ti ti-brand-github" aria-hidden="true"></i> GitHub
+      </a>
+      <a href="mailto:jorgepal02@hotmail.com" class="btn btn-outline">
+        <i class="ti ti-mail" aria-hidden="true"></i> Contactar
+      </a>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="s-label">01 — Sobre mí</div>
+    <div class="s-title">Quién soy</div>
+    <div class="about-grid">
+      <div>
+        <div class="about-text">
+          <p>Soy una persona entusiasta y adaptable, con rápida integración en equipos de trabajo y capacidad para aportar ideas innovadoras. Concibo la informática como mi futuro profesional y también como un hobby.</p>
+          <p>Actualmente cursando el Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM), con experiencia práctica en automatización, inteligencia artificial y desarrollo web.</p>
+        </div>
+        <div class="about-info">
+          <div class="info-row"><i class="ti ti-map-pin" aria-hidden="true"></i><span>Getafe, Madrid</span></div>
+          <div class="info-row"><i class="ti ti-phone" aria-hidden="true"></i><span>+34 644 20 76 36</span></div>
+          <div class="info-row"><i class="ti ti-mail" aria-hidden="true"></i><a href="mailto:jorgepal02@hotmail.com">jorgepal02@hotmail.com</a></div>
+          <div class="info-row"><i class="ti ti-brand-github" aria-hidden="true"></i><a href="https://github.com/JorgePal02" target="_blank">JorgePal02</a></div>
+          <div class="info-row"><i class="ti ti-brand-linkedin" aria-hidden="true"></i><a href="https://www.linkedin.com/in/jorge-palacios-gonz%C3%A1lez" target="_blank">Jorge Palacios González</a></div>
+        </div>
+        <div class="lang-row">
+          <span class="lang-badge">🇪🇸 Español (Nativo)</span>
+          <span class="lang-badge">🇬🇧 Inglés (Intermedio)</span>
+          <span class="lang-badge">🚗 Carnet de conducir</span>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat"><div class="stat-n">2</div><div class="stat-l">prácticas profesionales</div></div>
+        <div class="stat"><div class="stat-n">6+</div><div class="stat-l">lenguajes dominados</div></div>
+        <div class="stat"><div class="stat-n">DAM</div><div class="stat-l">formación actual</div></div>
+        <div class="stat"><div class="stat-n">AI</div><div class="stat-l">experiencia con RAG</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="s-label">02 — Habilidades</div>
+    <div class="s-title">Stack técnico</div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="sg-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
+        <div class="sg-title">Lenguajes</div>
+        <div class="tags">
+          <span class="tag">Java</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">PHP</span><span class="tag">HTML/CSS</span><span class="tag">XML</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-icon"><i class="ti ti-components" aria-hidden="true"></i></div>
+        <div class="sg-title">Frameworks</div>
+        <div class="tags">
+          <span class="tag">Spring Boot</span><span class="tag">React</span><span class="tag">Angular</span><span class="tag">APIs REST</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-icon"><i class="ti ti-database" aria-hidden="true"></i></div>
+        <div class="sg-title">Bases de datos</div>
+        <div class="tags">
+          <span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-icon"><i class="ti ti-server" aria-hidden="true"></i></div>
+        <div class="sg-title">Sistemas &amp; DevOps</div>
+        <div class="tags">
+          <span class="tag">Linux</span><span class="tag">Git/GitHub</span><span class="tag">Docker</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-icon"><i class="ti ti-robot" aria-hidden="true"></i></div>
+        <div class="sg-title">Automatización &amp; IA</div>
+        <div class="tags">
+          <span class="tag">n8n</span><span class="tag">Power Automate</span><span class="tag">Power Apps</span><span class="tag">Copilot</span><span class="tag">Claude</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="sg-icon"><i class="ti ti-tool" aria-hidden="true"></i></div>
+        <div class="sg-title">IDEs &amp; Herramientas</div>
+        <div class="tags">
+          <span class="tag tag-gray">VS Code</span><span class="tag tag-gray">Eclipse</span><span class="tag tag-gray">Android Studio</span><span class="tag tag-gray">Spring Tool</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="s-label">03 — Experiencia</div>
+    <div class="s-title">Trayectoria</div>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Feb 2026<br>May 2026</div>
+          <div class="exp-dot-row"><div class="exp-dot"></div></div>
+        </div>
+        <div>
+          <div class="exp-role">Desarrollador Junior en Prácticas</div>
+          <div class="exp-company">Valvia</div>
+          <div class="exp-desc">Participación en proyectos de automatización e Inteligencia Artificial, colaborando en el desarrollo de soluciones con arquitectura RAG. Experiencia práctica en dockerización de aplicaciones, integración de herramientas y resolución de incidencias en entornos profesionales.</div>
+          <div class="exp-tags">
+            <span class="tag">IA / RAG</span><span class="tag">Docker</span><span class="tag">Automatización</span><span class="tag">Python</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-date">Abr 2024<br>Jun 2024</div>
+          <div class="exp-dot-row"><div class="exp-dot"></div></div>
+        </div>
+        <div>
+          <div class="exp-role">Becario de Prácticas</div>
+          <div class="exp-company">ABAI — División BBVA</div>
+          <div class="exp-desc">Incorporación a la división de BBVA en los módulos de voz, datos y provisión. Funciones de consultoría, soporte técnico y resolución de problemas de cara al público en un entorno laboral real.</div>
+          <div class="exp-tags">
+            <span class="tag tag-gray">Soporte técnico</span><span class="tag tag-gray">Consultoría</span><span class="tag tag-gray">Atención al cliente</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="s-label">04 — Formación</div>
+    <div class="s-title">Estudios</div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-deg">Grado Superior — Desarrollo de Aplicaciones Multiplataforma (DAM)</div>
+        <div class="edu-school">Colegio La Inmaculada · Padres Escolapios</div>
+        <div class="edu-year">2024 — 2026</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">Grado Medio — Sistemas Microinformáticos y Redes (SMR)</div>
+        <div class="edu-school">Colegio La Inmaculada · Padres Escolapios</div>
+        <div class="edu-year">2022 — 2024</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="s-label">05 — Contacto</div>
+    <div class="contact-box">
+      <div class="contact-title">¿Hablamos<span>?</span></div>
+      <div class="contact-sub">Abierto a nuevas oportunidades, prácticas y proyectos.<br>No dudes en escribirme.</div>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/jorge-palacios-gonz%C3%A1lez" target="_blank" class="btn btn-lime">
+          <i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn
+        </a>
+        <a href="mailto:jorgepal02@hotmail.com" class="btn btn-outline">
+          <i class="ti ti-mail" aria-hidden="true"></i> jorgepal02@hotmail.com
+        </a>
+        <a href="https://github.com/JorgePal02" target="_blank" class="btn btn-outline">
+          <i class="ti ti-brand-github" aria-hidden="true"></i> JorgePal02
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-copy">© 2026 — <span>Jorge Palacios</span> · Getafe, Madrid</div>
+    <a href="https://www.linkedin.com/in/jorge-palacios-gonz%C3%A1lez" target="_blank" class="btn btn-outline" style="padding:.45rem 1rem;font-size:.6rem">
+      <i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn
+    </a>
+  </footer>
+</div>
