@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jorge Palacios — Full-Stack Dev & Técnico de Sistemas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <noscript><style>.reveal,.reveal-left,.reveal-scale{opacity:1!important;transform:none!important}</style></noscript>
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --lime:#C8FF00;
@@ -81,6 +84,17 @@ main{margin-left:290px;padding:0;overflow:hidden}
 .reveal-scale{opacity:0;transform:scale(.94);transition:opacity .6s ease,transform .6s ease}
 .reveal-scale.visible{opacity:1;transform:scale(1)}
 .delay-1{transition-delay:.1s}.delay-2{transition-delay:.18s}.delay-3{transition-delay:.26s}.delay-4{transition-delay:.34s}.delay-5{transition-delay:.42s}.delay-6{transition-delay:.5s}
+
+/* ── CSS-ONLY FALLBACK REVEAL (hero) ── */
+@keyframes cssReveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.hero .reveal{animation:cssReveal .65s ease forwards}
+.hero .reveal.delay-1{animation-delay:.1s}
+.hero .reveal.delay-2{animation-delay:.18s}
+.hero .reveal.delay-3{animation-delay:.26s}
+.hero .reveal.delay-4{animation-delay:.34s}
+.hero .reveal.delay-5{animation-delay:.42s}
+.hero .reveal.delay-6{animation-delay:.5s}
+.hero .reveal.visible{animation:none;opacity:1;transform:none}
 
 /* ── HERO ── */
 .hero{padding:4rem 3.2rem 3.2rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
@@ -466,23 +480,28 @@ h1.hero-name em:hover{animation:glitch .4s steps(2) both}
 </div>
 
 <script>
+try {
 // ── CURSOR GLOW ──
 const glow = document.getElementById('cursorGlow');
-document.addEventListener('mousemove', e => {
-  glow.style.left = e.clientX + 'px';
-  glow.style.top  = e.clientY + 'px';
-});
+if(glow) {
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top  = e.clientY + 'px';
+  });
+}
 
 // ── SCROLL REVEAL ──
 const revealEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-scale');
 const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
-}, { threshold: 0.12 });
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08 });
 revealEls.forEach(el => revealObs.observe(el));
 
 // trigger hero reveals immediately
-document.querySelectorAll('.hero .reveal').forEach(el => {
-  setTimeout(() => el.classList.add('visible'), 100);
+requestAnimationFrame(() => {
+  document.querySelectorAll('.hero .reveal').forEach(el => {
+    el.classList.add('visible');
+  });
 });
 
 // ── LANG BARS ──
@@ -526,6 +545,15 @@ const navObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.4, rootMargin: '-20% 0px -60% 0px' });
 sections.forEach(s => navObs.observe(s));
+
+} catch(err) { console.error('Portfolio JS error:', err); }
+
+// ── FAILSAFE: force all reveals visible after 2s ──
+setTimeout(() => {
+  document.querySelectorAll('.reveal:not(.visible),.reveal-left:not(.visible),.reveal-scale:not(.visible)').forEach(el => {
+    el.classList.add('visible');
+  });
+}, 2000);
 </script>
 </body>
 </html>
